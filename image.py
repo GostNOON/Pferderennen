@@ -4,64 +4,64 @@ from pygame.locals import *
 
 #lädt alle Bilder
 class Herz():
-    Ass=pygame.image.load("Pferderennen/image/Herz/Ass.png")
-    zwei=pygame.image.load("Pferderennen/image/Herz/2.png")
-    drei=pygame.image.load("Pferderennen/image/Herz/3.png")
-    vier=pygame.image.load("Pferderennen/image/Herz/4.png")
-    fünf=pygame.image.load("Pferderennen/image/Herz/5.png")
-    sechs=pygame.image.load("Pferderennen/image/Herz/6.png")
-    sieben=pygame.image.load("Pferderennen/image/Herz/7.png")
-    acht=pygame.image.load("Pferderennen/image/Herz/8.png")
-    neun=pygame.image.load("Pferderennen/image/Herz/9.png")
-    zehn=pygame.image.load("Pferderennen/image/Herz/10.png")
-    Bube=pygame.image.load("Pferderennen/image/Herz/Bube.png")
-    Dame=pygame.image.load("Pferderennen/image/Herz/Dame.png")
-    König=pygame.image.load("Pferderennen/image/Herz/König.png")
+    Ass=pygame.image.load("image/Herz/Ass.png")
+    zwei=pygame.image.load("image/Herz/2.png")
+    drei=pygame.image.load("image/Herz/3.png")
+    vier=pygame.image.load("image/Herz/4.png")
+    fünf=pygame.image.load("image/Herz/5.png")
+    sechs=pygame.image.load("image/Herz/6.png")
+    sieben=pygame.image.load("image/Herz/7.png")
+    acht=pygame.image.load("image/Herz/8.png")
+    neun=pygame.image.load("image/Herz/9.png")
+    zehn=pygame.image.load("image/Herz/10.png")
+    Bube=pygame.image.load("image/Herz/Bube.png")
+    Dame=pygame.image.load("image/Herz/Dame.png")
+    König=pygame.image.load("image/Herz/König.png")
 
 class Karo():
-    Ass=pygame.image.load("Pferderennen/image/Karo/Ass.png")
-    zwei=pygame.image.load("Pferderennen/image/Karo/2.png")
-    drei=pygame.image.load("Pferderennen/image/Karo/3.png")
-    vier=pygame.image.load("Pferderennen/image/Karo/4.png")
-    fünf=pygame.image.load("Pferderennen/image/Karo/5.png")
-    sechs=pygame.image.load("Pferderennen/image/Karo/6.png")
-    sieben=pygame.image.load("Pferderennen/image/Karo/7.png")
-    acht=pygame.image.load("Pferderennen/image/Karo/8.png")
-    neun=pygame.image.load("Pferderennen/image/Karo/9.png")
-    zehn=pygame.image.load("Pferderennen/image/Karo/10.png")
-    Bube=pygame.image.load("Pferderennen/image/Karo/Bube.png")
-    Dame=pygame.image.load("Pferderennen/image/Karo/Dame.png")
-    König=pygame.image.load("Pferderennen/image/Karo/König.png")
+    Ass=pygame.image.load("image/Karo/Ass.png")
+    zwei=pygame.image.load("image/Karo/2.png")
+    drei=pygame.image.load("image/Karo/3.png")
+    vier=pygame.image.load("image/Karo/4.png")
+    fünf=pygame.image.load("image/Karo/5.png")
+    sechs=pygame.image.load("image/Karo/6.png")
+    sieben=pygame.image.load("image/Karo/7.png")
+    acht=pygame.image.load("image/Karo/8.png")
+    neun=pygame.image.load("image/Karo/9.png")
+    zehn=pygame.image.load("image/Karo/10.png")
+    Bube=pygame.image.load("image/Karo/Bube.png")
+    Dame=pygame.image.load("image/Karo/Dame.png")
+    König=pygame.image.load("image/Karo/König.png")
 
 class Kreuz():
-    Ass=pygame.image.load("Pferderennen/image/Kreuz/Ass.png")
-    zwei=pygame.image.load("Pferderennen/image/Kreuz/2.png")
-    drei=pygame.image.load("Pferderennen/image/Kreuz/3.png")
-    vier=pygame.image.load("Pferderennen/image/Kreuz/4.png")
-    fünf=pygame.image.load("Pferderennen/image/Kreuz/5.png")
-    sechs=pygame.image.load("Pferderennen/image/Kreuz/6.png")
-    sieben=pygame.image.load("Pferderennen/image/Kreuz/7.png")
-    acht=pygame.image.load("Pferderennen/image/Kreuz/8.png")
-    neun=pygame.image.load("Pferderennen/image/Kreuz/9.png")
-    zehn=pygame.image.load("Pferderennen/image/Kreuz/10.png")
-    Bube=pygame.image.load("Pferderennen/image/Kreuz/Bube.png")
-    Dame=pygame.image.load("Pferderennen/image/Kreuz/Dame.png")
-    König=pygame.image.load("Pferderennen/image/Kreuz/König.png")
+    Ass=pygame.image.load("image/Kreuz/Ass.png")
+    zwei=pygame.image.load("image/Kreuz/2.png")
+    drei=pygame.image.load("image/Kreuz/3.png")
+    vier=pygame.image.load("image/Kreuz/4.png")
+    fünf=pygame.image.load("image/Kreuz/5.png")
+    sechs=pygame.image.load("image/Kreuz/6.png")
+    sieben=pygame.image.load("image/Kreuz/7.png")
+    acht=pygame.image.load("image/Kreuz/8.png")
+    neun=pygame.image.load("image/Kreuz/9.png")
+    zehn=pygame.image.load("image/Kreuz/10.png")
+    Bube=pygame.image.load("image/Kreuz/Bube.png")
+    Dame=pygame.image.load("image/Kreuz/Dame.png")
+    König=pygame.image.load("image/Kreuz/König.png")
 
 class Pik():
-    Ass=pygame.image.load("Pferderennen/image/Pik/Ass.png")
-    zwei=pygame.image.load("Pferderennen/image/Pik/2.png")
-    drei=pygame.image.load("Pferderennen/image/Pik/3.png")
-    vier=pygame.image.load("Pferderennen/image/Pik/4.png")
-    fünf=pygame.image.load("Pferderennen/image/Pik/5.png")
-    sechs=pygame.image.load("Pferderennen/image/Pik/6.png")
-    sieben=pygame.image.load("Pferderennen/image/Pik/7.png")
-    acht=pygame.image.load("Pferderennen/image/Pik/8.png")
-    neun=pygame.image.load("Pferderennen/image/Pik/9.png")
-    zehn=pygame.image.load("Pferderennen/image/Pik/10.png")
-    Bube=pygame.image.load("Pferderennen/image/Pik/Bube.png")
-    Dame=pygame.image.load("Pferderennen/image/Pik/Dame.png")
-    König=pygame.image.load("Pferderennen/image/Pik/König.png")
+    Ass=pygame.image.load("image/Pik/Ass.png")
+    zwei=pygame.image.load("image/Pik/2.png")
+    drei=pygame.image.load("image/Pik/3.png")
+    vier=pygame.image.load("image/Pik/4.png")
+    fünf=pygame.image.load("image/Pik/5.png")
+    sechs=pygame.image.load("image/Pik/6.png")
+    sieben=pygame.image.load("image/Pik/7.png")
+    acht=pygame.image.load("image/Pik/8.png")
+    neun=pygame.image.load("image/Pik/9.png")
+    zehn=pygame.image.load("image/Pik/10.png")
+    Bube=pygame.image.load("image/Pik/Bube.png")
+    Dame=pygame.image.load("image/Pik/Dame.png")
+    König=pygame.image.load("image/Pik/König.png")
 
 #Größe der Bilder
 class Herz_Größe:
@@ -122,7 +122,7 @@ class Pik_Größe:
     Dame=Pik.Dame.get_rect()
     König=Pik.König.get_rect()
 
-Hintergrund=pygame.image.load("Pferderennen/image/Rückseite.png")
+Hintergrund=pygame.image.load("image/Rückseite.png")
 bildgroessen = Hintergrund.get_rect()
 print(bildgroessen)
 print(bildgroessen.width)
@@ -157,18 +157,20 @@ Pik.zwei,Pik.drei,Pik.vier,Pik.fünf,Pik.sechs,Pik.sieben,Pik.acht,Pik.neun,Pik.
 ]
 
 Spielkarte_list=[]
+nachziehstappel_auseinander=[]
+Spielkarte_stationen=[]
 #print(Spielkarte)
 #print(Spielkarte_ohne_ass)
 Ass=[
     0,
     Herz.Ass,
-    "Herz Ass",
+    
     Karo.Ass,
-    "Karo Ass",
+    
     Kreuz.Ass,
-    "Kreuz Ass",
+    
     Pik.Ass,
-    "Pik Ass"
+    
 ]
 
 Karten_detecktion={
@@ -185,3 +187,14 @@ Karten_detecktion={
     "Karo3":0,
     "Pik3":0,
 }
+
+Nachziehstapel=[
+[Herz.zwei,1],[Herz.drei,1],[Herz.vier,1],[Herz.fünf,1],[Herz.sechs,1],[Herz.sieben,1],[Herz.acht,1],[Herz.neun,1],[Herz.zehn,1],[Herz.Bube,1],[Herz.Dame,1],[Herz.König,1],
+
+[Karo.zwei,2],[Karo.drei,2],[Karo.vier,2],[Karo.fünf,2],[Karo.sechs,2],[Karo.sieben,2],[Karo.acht,2],[Karo.neun,2],[Karo.zehn,2],[Karo.Bube,2],[Karo.Dame,2],[Karo.König,2],
+
+[Kreuz.zwei,3],[Kreuz.drei,3],[Kreuz.vier,3],[Kreuz.fünf,3],[Kreuz.sechs,3],[Kreuz.sieben,3],[Kreuz.acht,3],[Kreuz.neun,3],[Kreuz.zehn,3],[Kreuz.Bube,3],[Kreuz.Dame,3],[Kreuz.König,3],
+
+[Pik.zwei,4],[Pik.drei,4],[Pik.vier,4],[Pik.fünf,4],[Pik.sechs,4],[Pik.sieben,4],[Pik.acht,4],[Pik.neun,4],[Pik.zehn,4],[Pik.Bube,4],[Pik.Dame,4],[Pik.König,4]
+
+]
