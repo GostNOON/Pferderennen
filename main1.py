@@ -87,10 +87,7 @@ def Station_():
     
 
 def Nachziehstapel_():
-    s=0
     x=0
-    y=0
-    o=0
     if Karte_nummer<1:
         shuffle(Nachziehstapel)
         """for i in range(48):
