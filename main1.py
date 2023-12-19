@@ -2,7 +2,7 @@ import pygame
 #from pygame.locals import *
 from image import *
 from random import *
-from einsatz import *
+#from einsatz import *
 
 pygame.init()
 
@@ -285,7 +285,7 @@ while spielaktiv:
 
 
     if end==True:
-        screen.blit(winner,(W/2,H/2))
+        screen.blit(winner,(W/2,H/4))
         runde=False
 
         #print(Ass[Farbe+1])
