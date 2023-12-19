@@ -2,6 +2,7 @@ import pygame
 #from pygame.locals import *
 from image import *
 from random import *
+from back import *
 
 pygame.init()
 
