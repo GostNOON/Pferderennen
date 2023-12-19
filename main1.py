@@ -17,7 +17,7 @@ class color:
     WEISS   = ( 255, 255, 255)
     GRUEN  = (0,255,0)
 
-skalierung = 0 
+skalierung = 0
 skalierungswert = 1
 W_karte,H_karte=70,100
 W_ass_position=[0,40,40,40,40]

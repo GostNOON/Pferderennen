@@ -1,6 +1,5 @@
 spieler=3
 einsaetz_spiele=[]
-ergebniss=0
 
 def einsatz():
     for i in range(spieler+1):
@@ -11,7 +10,9 @@ def einsatz():
         einsaetz_spiele[i]=x
 
 def rechnung_gewinn():
+    ergebniss=0
     for i in einsaetz_spiele:
         ergebniss+=i
+    return(ergebniss)
 
-print(ergebniss)
+print(rechnung_gewinn())
