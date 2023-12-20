@@ -124,9 +124,9 @@ class Pik_Größe:
 
 Hintergrund=pygame.image.load("image/Rückseite.png")
 bildgroessen = Hintergrund.get_rect()
-print(bildgroessen)
-print(bildgroessen.width)
-print(bildgroessen.height)
+#print(bildgroessen)
+#print(bildgroessen.width)
+#print(bildgroessen.height)
 
 
 Spielkarte=[
