@@ -229,7 +229,7 @@ def game_intelation_einsatz(p):
                         player=False
 
             pygame.display.update()
-    return(horse)
+    return(einsatz)
 def game_intrlation_horse(p):
     horse=[]
     for i in range(p+1):
