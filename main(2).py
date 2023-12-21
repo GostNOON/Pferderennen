@@ -179,7 +179,57 @@ def game_intelation_Player():
         pygame.display.update()
 
 def game_intelation_einsatz(p):
-    pass
+    einsatz=[]
+    for i in range(p+1):
+        einsatz.append(0)
+    
+    
+    for i in range(1,p+1,1):
+        player=True
+        while player:
+            screen.blit(BG, (0, 0))
+
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+            MENU_TEXT = get_font(50).render(f"Betting stake of player {i}", True, "#b68f40")
+            MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
+
+            one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
+                                text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+            two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 400), 
+                                text_input="10", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+            three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 250),
+                                text_input="15", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+            four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
+                                text_input="20", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+
+            screen.blit(MENU_TEXT, MENU_RECT)
+            for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
+                button.changeColor(MENU_MOUSE_POS)
+                button.update(screen)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        main_menu()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if one_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        einsatz[i]=5
+                        player=False
+                    if two_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        einsatz[i]=10
+                        player=False
+                    if three_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        einsatz[i]=15
+                        player=False
+                    if four_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        einsatz[i]=20
+                        player=False
+
+            pygame.display.update()
+    return(horse)
 def game_intrlation_horse(p):
     horse=[]
     for i in range(p+1):
@@ -232,6 +282,7 @@ def game_intrlation_horse(p):
 
             pygame.display.update()
     return(horse)
+
 
 def play():
     W_karte,H_karte=70,100
