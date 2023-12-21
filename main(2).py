@@ -183,7 +183,6 @@ def game_intelation_einsatz(p):
     for i in range(p+1):
         einsatz.append(0)
     
-    
     for i in range(1,p+1,1):
         player=True
         while player:
