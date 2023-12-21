@@ -190,7 +190,7 @@ def game_intelation_einsatz(p):
             screen.blit(BG, (0, 0))
 
             MENU_MOUSE_POS = pygame.mouse.get_pos()
-            MENU_TEXT = get_font(50).render(f"Betting stake of player {i}", True, "#b68f40")
+            MENU_TEXT = get_font(35).render(f"Betting stake of player {i}", True, "#b68f40")
             MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
 
             one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
