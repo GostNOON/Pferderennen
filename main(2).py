@@ -72,7 +72,7 @@ screen=pygame.display.set_mode((W,H))
 #pygame.display.set_caption("Pferderennen")
 clock = pygame.time.Clock()
 BG = pygame.image.load("image/assets\Background.png")
-pygame.display.set_caption("Menu")
+
 
 def Back():
 
@@ -312,6 +312,7 @@ def game_intelation_Player():
         pygame.display.update()
 
 def play():
+    pygame.display.set_caption("Game")
     W_karte,H_karte=70,100
     W_ass_position=[0,40,40,40,40]
     spielaktiv = True
@@ -467,6 +468,7 @@ def play():
         clock.tick(60)
 
 def main_menu():
+    pygame.display.set_caption("Menu")
     while True:
         screen.blit(BG, (0, 0))
 
