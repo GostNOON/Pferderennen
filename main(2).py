@@ -209,6 +209,7 @@ def Horse(i):
                     if OPTIONS_BACK.checkForInput(MOUSE_POS):
                         play()
         pygame.display.update()
+    print(h)
     return(h)
 
 def Betting_stake(i):
@@ -319,7 +320,7 @@ def play():
     Farbe=0 
     karte=0
     stationen=game_intelation_stations()
-    
+
     player=game_intelation_Player()
     horse_betting_skake=game_intelation_horse_betting_stake(player)
     time=0
@@ -354,6 +355,8 @@ def play():
                     W_ass_position[Farbe]+=-20
                 if end==True:
                     if event.key==pygame.K_SPACE:
+                        main_menu()
+                    if event.type==pygame.MOUSEBUTTONDOWN:
                         main_menu()
             if event.type==pygame.KEYUP:
                 print("UP")
@@ -397,6 +400,7 @@ def play():
                     winner=pygame.transform.rotate(winner,(0))
                     winner=pygame.transform.scale(winner,(W_karte*3,H_karte*3))
                     end=True
+                    
 
                     print(Ass[Farbe],Farbe)
 
@@ -458,8 +462,22 @@ def play():
                 screen.blit(Nachziehstapel_darstellen_bild,(830+nachziehstappel_auseinander[i][0],170+nachziehstappel_auseinander[i][1]))
 
         if end==True:
-            screen.blit(winner,(W/2,H/4))
+            screen.blit(winner,(W/2+200,H/4))
             runde=False
+            swallowes=0
+            for i in range(player):
+                if horse_betting_skake[i][0]==Farbe:
+                    TEXT = get_font(40).render(f"player {i+1} win", True, "#b68f40")
+                    RECT = TEXT.get_rect(center=(300, 50+50*i))
+                    screen.blit(TEXT,RECT)
+                
+                swallowes+=horse_betting_skake[i][1]
+                    
+            TEXT2 = get_font(40).render(f"swallowes: {swallowes} ", True, "#b68f40")
+            RECT2 = TEXT2.get_rect(center=(300,300))
+            screen.blit(TEXT2,RECT2)
+
+
 
         # Fenster aktualisieren
         pygame.display.flip()
