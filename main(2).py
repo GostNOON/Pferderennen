@@ -74,6 +74,19 @@ clock = pygame.time.Clock()
 BG = pygame.image.load("image/assets\Background.png")
 pygame.display.set_caption("Menu")
 
+def Back():
+
+       OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+       OPTIONS_BACK = Button(image=None, pos=(850, 550), 
+                           text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
+       
+       OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+       
+       for event in pygame.event.get():
+           if event.type == pygame.MOUSEBUTTONDOWN:
+               if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                   main_menu()
+
 def Stationen_():
     for i in (1,2,3,4):
         detektion_station[i]-=1
@@ -103,7 +116,7 @@ def game_intelation_stations():
     while True:
         screen.blit(BG, (0, 0))
 
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MOUSE_POS = pygame.mouse.get_pos()
         MENU_TEXT = get_font(50).render("number of Stations ", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
 
@@ -113,9 +126,12 @@ def game_intelation_stations():
                             text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 550),
                             text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BACK = Button(image=None, pos=(850, 550), 
+                            text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
+        
         screen.blit(MENU_TEXT, MENU_RECT)
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON,OPTIONS_BACK]:
+            button.changeColor(MOUSE_POS)
             button.update(screen)
         
         for event in pygame.event.get():
@@ -126,13 +142,15 @@ def game_intelation_stations():
                 if event.key == pygame.K_ESCAPE:
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if PLAY_BUTTON.checkForInput(MOUSE_POS):
                     return(3)
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
                     return(4)
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if QUIT_BUTTON.checkForInput(MOUSE_POS):
                     return(5)
-                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                        main_menu()
                 
 
         pygame.display.update()
@@ -147,7 +165,7 @@ def Horse(i):
     player=True
     while player:
         screen.blit(BG, (0, 0))
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MOUSE_POS = pygame.mouse.get_pos()
         MENU_TEXT = get_font(50).render(f"Horse of player {i+1}", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
         
@@ -159,10 +177,12 @@ def Horse(i):
                             text_input="Kreuz", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
                             text_input="Pik", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BACK = Button(image=None, pos=(800, 550), 
+                            text_input="BACK", font=get_font(60), base_color="Black", hovering_color="Green")
         screen.blit(MENU_TEXT, MENU_RECT)
         
-        for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+        for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON,OPTIONS_BACK]:
+            button.changeColor(MOUSE_POS)
             button.update(screen)
         
         for event in pygame.event.get():
@@ -173,18 +193,21 @@ def Horse(i):
                 if event.key == pygame.K_ESCAPE:
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if one_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if one_BUTTON.checkForInput(MOUSE_POS):
                     h=1
                     player=False
-                if two_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if two_BUTTON.checkForInput(MOUSE_POS):
                     h=2
                     player=False
-                if three_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if three_BUTTON.checkForInput(MOUSE_POS):
                     h=3
                     player=False
-                if four_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if four_BUTTON.checkForInput(MOUSE_POS):
                     h=4
                     player=False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                        play()
         pygame.display.update()
     return(h)
 
@@ -193,7 +216,7 @@ def Betting_stake(i):
     player=True
     while player:
         screen.blit(BG, (0, 0))
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MOUSE_POS = pygame.mouse.get_pos()
         MENU_TEXT = get_font(35).render(f"Betting stake of player {i+1}", True, "#b68f40")
         #MENU_TEXT2 = get_font(35).render(f"Horse {}", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
@@ -207,11 +230,14 @@ def Betting_stake(i):
                             text_input="15", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
                             text_input="20", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BACK = Button(image=None, pos=(850, 550), 
+                            text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
+        
         screen.blit(MENU_TEXT, MENU_RECT)
         #screen.blit(MENU_TEXT2, MENU_RECT2)
 
-        for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+        for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON,OPTIONS_BACK]:
+            button.changeColor(MOUSE_POS)
             button.update(screen)
 
         for event in pygame.event.get():
@@ -222,19 +248,21 @@ def Betting_stake(i):
                 if event.key == pygame.K_ESCAPE:
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if one_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if one_BUTTON.checkForInput(MOUSE_POS):
                     BT=5
                     player=False
-                if two_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if two_BUTTON.checkForInput(MOUSE_POS):
                     BT=10
                     player=False
-                if three_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if three_BUTTON.checkForInput(MOUSE_POS):
                     BT=15
                     player=False
-                if four_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if four_BUTTON.checkForInput(MOUSE_POS):
                     BT=20
                     player=False
-
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                        play()
         pygame.display.update()
     return(BT)
 
@@ -242,7 +270,7 @@ def game_intelation_Player():
      while True:
         screen.blit(BG, (0, 0))
 
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MOUSE_POS = pygame.mouse.get_pos()
         MENU_TEXT = get_font(50).render("number of players ", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
 
@@ -254,10 +282,12 @@ def game_intelation_Player():
                             text_input="3", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
                             text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BACK = Button(image=None, pos=(850, 550), 
+                            text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
         
         screen.blit(MENU_TEXT, MENU_RECT)
-        for button in [one_BUTTON, two_BUTTON, three_BUTTON,four_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+        for button in [one_BUTTON, two_BUTTON, three_BUTTON,four_BUTTON,OPTIONS_BACK]:
+            button.changeColor(MOUSE_POS)
             button.update(screen)
         
         for event in pygame.event.get():
@@ -268,15 +298,17 @@ def game_intelation_Player():
                 if event.key == pygame.K_ESCAPE:
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if one_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if one_BUTTON.checkForInput(MOUSE_POS):
                     return(1)
-                if two_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if two_BUTTON.checkForInput(MOUSE_POS):
                     return(2)
-                if three_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if three_BUTTON.checkForInput(MOUSE_POS):
                     return(3)
-                if four_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if four_BUTTON.checkForInput(MOUSE_POS):
                     return(4)
-                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                        game_intelation_stations()
         pygame.display.update()
 
 def play():
@@ -319,6 +351,9 @@ def play():
                     #distance=-20
                     print(Farbe)
                     W_ass_position[Farbe]+=-20
+                if end==True:
+                    if event.key==pygame.K_SPACE:
+                        main_menu()
             if event.type==pygame.KEYUP:
                 print("UP")
                 if event.key == pygame.K_c:
@@ -424,7 +459,6 @@ def play():
         if end==True:
             screen.blit(winner,(W/2,H/4))
             runde=False
-            main_menu()
 
         # Fenster aktualisieren
         pygame.display.flip()
@@ -436,7 +470,7 @@ def main_menu():
     while True:
         screen.blit(BG, (0, 0))
 
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MOUSE_POS = pygame.mouse.get_pos()
 
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
@@ -451,7 +485,7 @@ def main_menu():
         screen.blit(MENU_TEXT, MENU_RECT)
 
         for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+            button.changeColor(MOUSE_POS)
             button.update(screen)
         
         for event in pygame.event.get():
@@ -459,12 +493,12 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if PLAY_BUTTON.checkForInput(MOUSE_POS):
                     play()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
                     #options()
                     pass
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if QUIT_BUTTON.checkForInput(MOUSE_POS):
                     pygame.quit()
                     sys.exit()
 
