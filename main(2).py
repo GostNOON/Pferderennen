@@ -136,6 +136,107 @@ def game_intelation_stations():
                 
 
         pygame.display.update()
+def game_intelation_horse_betting_stake(p):
+    player_betting_stake=[]
+    for i in range(p):
+        player_betting_stake.append([Horse(i),Betting_stake(i)])
+    return(player_betting_stake)
+
+def Horse(i):
+    h=0
+    player=True
+    while player:
+        screen.blit(BG, (0, 0))
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MENU_TEXT = get_font(50).render(f"Horse of player {i+1}", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
+        
+        one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
+                            text_input="Herz", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 400), 
+                            text_input="Karo", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 250),
+                            text_input="Kreuz", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
+                            text_input="Pik", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        screen.blit(MENU_TEXT, MENU_RECT)
+        
+        for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(screen)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    main_menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if one_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    h=1
+                    player=False
+                if two_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    h=2
+                    player=False
+                if three_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    h=3
+                    player=False
+                if four_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    h=4
+                    player=False
+        pygame.display.update()
+    return(h)
+
+def Betting_stake(i):
+    BT=0
+    player=True
+    while player:
+        screen.blit(BG, (0, 0))
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MENU_TEXT = get_font(35).render(f"Betting stake of player {i+1}", True, "#b68f40")
+        #MENU_TEXT2 = get_font(35).render(f"Horse {}", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
+        #MENU_RECT2 = MENU_TEXT2.get_rect(center=(500, 100))
+
+        one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
+                            text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 400), 
+                            text_input="10", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 250),
+                            text_input="15", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
+                            text_input="20", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        screen.blit(MENU_TEXT, MENU_RECT)
+        #screen.blit(MENU_TEXT2, MENU_RECT2)
+
+        for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    main_menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if one_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    BT=5
+                    player=False
+                if two_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    BT=10
+                    player=False
+                if three_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    BT=15
+                    player=False
+                if four_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    BT=20
+                    player=False
+
+        pygame.display.update()
+    return(BT)
 
 def game_intelation_Player():
      while True:
@@ -178,111 +279,6 @@ def game_intelation_Player():
                 
         pygame.display.update()
 
-def game_intelation_einsatz(p):
-    einsatz=[]
-    for i in range(p+1):
-        einsatz.append(0)
-    
-    for i in range(1,p+1,1):
-        player=True
-        while player:
-            screen.blit(BG, (0, 0))
-
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-            MENU_TEXT = get_font(35).render(f"Betting stake of player {i}", True, "#b68f40")
-            MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
-
-            one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
-                                text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-            two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 400), 
-                                text_input="10", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-            three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 250),
-                                text_input="15", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-            four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
-                                text_input="20", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-
-            screen.blit(MENU_TEXT, MENU_RECT)
-            for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
-                button.changeColor(MENU_MOUSE_POS)
-                button.update(screen)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        main_menu()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if one_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        einsatz[i]=5
-                        player=False
-                    if two_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        einsatz[i]=10
-                        player=False
-                    if three_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        einsatz[i]=15
-                        player=False
-                    if four_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        einsatz[i]=20
-                        player=False
-
-            pygame.display.update()
-    return(einsatz)
-def game_intrlation_horse(p):
-    horse=[]
-    for i in range(p+1):
-        horse.append(0)
-    
-    
-    for i in range(1,p+1,1):
-        player=True
-        while player:
-            screen.blit(BG, (0, 0))
-
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-            MENU_TEXT = get_font(50).render(f"Horse of player {i}", True, "#b68f40")
-            MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
-
-            one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
-                                text_input="Herz", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-            two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 400), 
-                                text_input="Karo", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-            three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 250),
-                                text_input="Kreuz", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-            four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
-                                text_input="Pik", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-
-            screen.blit(MENU_TEXT, MENU_RECT)
-            for button in [one_BUTTON, two_BUTTON, three_BUTTON, four_BUTTON]:
-                button.changeColor(MENU_MOUSE_POS)
-                button.update(screen)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        main_menu()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if one_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        horse[i]=1
-                        player=False
-                    if two_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        horse[i]=2
-                        player=False
-                    if three_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        horse[i]=3
-                        player=False
-                    if four_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        horse[i]=4
-                        player=False
-
-            pygame.display.update()
-    return(horse)
-
-
 def play():
     W_karte,H_karte=70,100
     W_ass_position=[0,40,40,40,40]
@@ -290,10 +286,9 @@ def play():
     Farbe=0 
     karte=0
     stationen=game_intelation_stations()
+    
     player=game_intelation_Player()
-    einsatz=game_intelation_einsatz(player)
-    horse=game_intrlation_horse(player)
-    print(horse)
+    horse_betting_skake=game_intelation_horse_betting_stake(player)
     time=0
     detektion_station=["Farbe:1:Herz 2:Karo 3:Kreuz 4:Pik",0,0,0,0]
     end=False
