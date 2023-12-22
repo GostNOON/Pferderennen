@@ -312,6 +312,10 @@ def game_intelation_Player():
                         game_intelation_stations()
         pygame.display.update()
 
+def options():
+    while True:
+        pass
+
 def play():
     pygame.display.set_caption("Game")
     W_karte,H_karte=70,100
@@ -516,8 +520,8 @@ def main_menu():
                 if PLAY_BUTTON.checkForInput(MOUSE_POS):
                     play()
                 if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
-                    #options()
-                    pass
+                    options()
+                    
                 if QUIT_BUTTON.checkForInput(MOUSE_POS):
                     pygame.quit()
                     sys.exit()
