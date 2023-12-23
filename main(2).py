@@ -68,7 +68,7 @@ class Button():
 		else:
 			self.text = self.font.render(self.text_input, True, self.base_color)
 
-screen=pygame.display.set_mode((W,H))
+screen=pygame.display.set_mode((W,H),pygame.SCALED|pygame.FULLSCREEN)
 #pygame.display.set_caption("Pferderennen")
 clock = pygame.time.Clock()
 BG = pygame.image.load("image/assets\Background.png")
