@@ -5,6 +5,8 @@ from random import *
 #from einsatz import *
 #from main1 import*
 pygame.init()
+
+
 W, H = 1000, 600
 
 class color:
@@ -268,7 +270,10 @@ def Betting_stake(i):
     return(BT)
 
 def game_intelation_Player():
-     while True:
+    player_sheet= open("txt/player.txt")
+    player_button_lines=player_sheet.readlines()
+    
+    while True:
         screen.blit(BG, (0, 0))
 
         MOUSE_POS = pygame.mouse.get_pos()
@@ -276,13 +281,13 @@ def game_intelation_Player():
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
 
         one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 250),
-                            text_input="1", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=player_button_lines[0], font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 400), 
-                            text_input="2", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=player_button_lines[1], font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 250),
-                            text_input="3", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=player_button_lines[2], font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(750, 400),
-                            text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=player_button_lines[3], font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BACK = Button(image=None, pos=(850, 550), 
                             text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
         
@@ -300,15 +305,20 @@ def game_intelation_Player():
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if one_BUTTON.checkForInput(MOUSE_POS):
-                    return(1)
+                    player_sheet.close()
+                    return(int(player_button_lines[0]))
                 if two_BUTTON.checkForInput(MOUSE_POS):
-                    return(2)
+                    player_sheet.close()
+                    return(int(player_button_lines[1]))
                 if three_BUTTON.checkForInput(MOUSE_POS):
-                    return(3)
+                    player_sheet.close()
+                    return(int(player_button_lines[2]))
                 if four_BUTTON.checkForInput(MOUSE_POS):
-                    return(4)
+                    player_sheet.close()
+                    return(int(player_button_lines[3]))
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                        player_sheet.close()
                         game_intelation_stations()
         pygame.display.update()
 
@@ -488,6 +498,48 @@ def play():
 
         # Refresh-Zeiten festlegen
         clock.tick(60)
+def options():
+    while True:
+        screen.blit(BG, (0, 0))
+
+        MOUSE_POS = pygame.mouse.get_pos()
+        MENU_TEXT = get_font(50).render("number of Stations ", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
+
+        PLAY_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 250), 
+                            text_input="3", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 400), 
+                            text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 550),
+                            text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BACK = Button(image=None, pos=(850, 550), 
+                            text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
+        
+        screen.blit(MENU_TEXT, MENU_RECT)
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON,OPTIONS_BACK]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    main_menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MOUSE_POS):
+                    return(3)
+                if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
+                    return(4)
+                if QUIT_BUTTON.checkForInput(MOUSE_POS):
+                    return(5)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                        main_menu()
+                
+
+        pygame.display.update()
 
 def main_menu():
     pygame.display.set_caption("Menu")
