@@ -1,2 +1,6 @@
 X personalisierter einsatz
 X endscreen
+x stationen skalierung
+x hintergrund ändern
+X endscreen machen(space um zurück zu kommen)
+X 
