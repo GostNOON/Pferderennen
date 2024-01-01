@@ -416,21 +416,21 @@ def game_intelation_horse_betting_stake_pbg(i):
         einsatz_TEXT = get_font(25).render("Anzahl Schlücke:", True, "#b68f40")
         einsatz_RECT = MENU_TEXT.get_rect(center=(970, 190))
 
-        if h==1: one_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 180),
+        if h==1: one_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 170),
                             text_input="Herz", font=get_font(75), base_color="#d7fcd4", hovering_color="Blue")
-        else: one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 180),
+        else: one_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 170),
                             text_input="Herz", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        if h==2: two_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 300),
+        if h==2: two_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 290),
                             text_input="Karo", font=get_font(75), base_color="#d7fcd4", hovering_color="Blue")
-        else:two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 300), 
+        else:two_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 290), 
                             text_input="Karo", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        if h==3: three_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 420),
+        if h==3: three_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 410),
                             text_input="Kreuz", font=get_font(65), base_color="#d7fcd4", hovering_color="Blue")
-        else:three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 420),
+        else:three_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 410),
                             text_input="Kreuz", font=get_font(65), base_color="#d1fcd4", hovering_color="White")
-        if h==4: four_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 540),
+        if h==4: four_BUTTON= Button(image=pygame.image.load("image/assets/Quit Rect select.png"), pos=(250, 530),
                             text_input="Pik", font=get_font(75), base_color="#d7fcd4", hovering_color="Blue")
-        else:four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 540),
+        else:four_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(250, 530),
                             text_input="Pik", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BACK = Button(image=None, pos=(800, 550), 
                             text_input="Zurück", font=get_font(60), base_color="Black", hovering_color="Green")
