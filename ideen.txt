@@ -9,3 +9,4 @@ X einsatz berechnung
 X pause menü ingame
 § Zeit einstellen
 ? Rundenbasiert manuel Automatisch
+X erneute Runde butten ohne zum haubtmenü zukommen

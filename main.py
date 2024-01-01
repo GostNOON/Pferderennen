@@ -355,6 +355,11 @@ def game_intelation_Player_keybord_input():
             if event.type==pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     main_menu()
+                if event.key == pygame.K_SPACE:
+                    try:
+                        return(int(user_text))
+                    except:
+                        user_text="1"
             if event.type ==pygame.MOUSEBUTTONDOWN:
                 
                 if input_rect.collidepoint(event.pos):
@@ -362,7 +367,7 @@ def game_intelation_Player_keybord_input():
                     user_text=""
                 else:
                     active=False
-                    if len(user_text)<1:
+                    if len(user_text)<1 or user_text=="0":
                             user_text="1"
 
                 if forward_BUTTON.checkForInput(pygame.mouse.get_pos()):
@@ -377,7 +382,7 @@ def game_intelation_Player_keybord_input():
                         user_text =user_text[:-1]
                     elif event.key==pygame.K_RETURN:
                         active=False
-                        if len(user_text)<1:
+                        if len(user_text)<1 or user_text=="0":
                             user_text="1"
                         try:
                             return(int(user_text))
@@ -464,13 +469,28 @@ def game_intelation_horse_betting_stake_pbg(i):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     main_menu()
+                if event.key == pygame.K_1:
+                    h=1
+                elif event.key == pygame.K_2:
+                    h=2
+                elif event.key == pygame.K_3:
+                    h=3
+                elif event.key == pygame.K_4:
+                    h=4
+                if event.key== pygame.K_SPACE:
+                    player=False
+                    try:
+                        return([h,int(user_text)])
+                    except:
+                        user_text="10"
+                        player=True
                 if active==True:
                     if event.key==pygame.K_BACKSPACE:
                         user_text =user_text[:-1]
                     elif event.key==pygame.K_RETURN:
                         active=False
-                        if len(user_text)<1:
-                            user_text="1"
+                        if len(user_text)<1 or user_text=="0":
+                            user_text="10"
                         try:
                             return([h,int(user_text)])
                         except:
@@ -489,8 +509,8 @@ def game_intelation_horse_betting_stake_pbg(i):
                     user_text=""
                 else:
                     active=False
-                    if len(user_text)<1:
-                        user_text="1"
+                    if len(user_text)<1 or user_text=="0":
+                        user_text="10"
                 
                 if one_BUTTON.checkForInput(MOUSE_POS):
                     if h==1:
@@ -630,6 +650,12 @@ def play():
                     winner=pygame.transform.rotate(winner,(0))
                     winner=pygame.transform.scale(winner,(W_karte*3,H_karte*3))
                     end=True
+                    gewinner=[]
+
+                    for i in range(player):
+                        if horse_betting_skake[i][0]==Farbe:
+                            gewinner.append(i+1)
+                    gewinner_string='/'.join([str(elem) for elem in gewinner])
                     
 
                     print(Ass[Farbe],Farbe)
@@ -696,16 +722,18 @@ def play():
             screen.blit(winner,(W/2+200,H/4))
             runde=False
             swallowes=0
+            if len(gewinner_string)>1:hat_haben="haben"
+            else:hat_haben="hat"
+
+            TEXT = get_font(40).render(f"Spieler {gewinner_string} {hat_haben} gewonnen!", True, "#b68f40")
+            RECT = TEXT.get_rect(center=(500, 90))
+            
             for i in range(player):
-                if horse_betting_skake[i][0]==Farbe:
-                    TEXT = get_font(40).render(f"Spieler {i+1} hat gewonnen!!!", True, "#b68f40")
-                    RECT = TEXT.get_rect(center=(300, 50+50*i))
-                    screen.blit(TEXT,RECT)
-                
                 swallowes+=horse_betting_skake[i][1]
                     
             TEXT2 = get_font(40).render(f"schlücke: {swallowes} ", True, "#b68f40")
             RECT2 = TEXT2.get_rect(center=(300,300))
+            screen.blit(TEXT,RECT)
             screen.blit(TEXT2,RECT2)
 
 
