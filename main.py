@@ -95,13 +95,14 @@ def Stationen_():
     Farbe=randint(1,4)
     W_ass_position[Farbe]-=120
 
-def Nachziehstapel_():
+def Nachziehstapel_(Stationen):
     x=0
     if Karte_nummer<1:
         shuffle(Nachziehstapel)
-        for i in range(stationen):
-            x=Nachziehstapel.pop(i)
+        for i in range(Stationen):
+            x=Nachziehstapel.pop(-1)
             x[0]=pygame.transform.rotate(x[0],(90))
+            print(i)
 
             Spielkarte_stationen.append(x)
         print(Nachziehstapel,"\n\n",Spielkarte_stationen)
@@ -543,7 +544,7 @@ def play():
     for i in range(48-stationen):
         nachziehstappel_auseinander.append([0,0])
 
-    Nachziehstapel_()
+    Nachziehstapel_(stationen)
     while True:
 
         # Überprüfen, ob Nutzer eine Aktion durchgeführt hat
