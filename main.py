@@ -359,8 +359,11 @@ def game_intelation_Player_keybord_input():
                 
                 if input_rect.collidepoint(event.pos):
                     active=True
+                    user_text=""
                 else:
                     active=False
+                    if len(user_text)<1:
+                            user_text="1"
 
                 if forward_BUTTON.checkForInput(pygame.mouse.get_pos()):
                     try:
@@ -374,6 +377,8 @@ def game_intelation_Player_keybord_input():
                         user_text =user_text[:-1]
                     elif event.key==pygame.K_RETURN:
                         active=False
+                        if len(user_text)<1:
+                            user_text="1"
                         try:
                             return(int(user_text))
                         except:
@@ -394,8 +399,11 @@ def game_intelation_Player_keybord_input():
         
         screen.blit(MENU_TEXT, MENU_RECT)
         text_surface=base_font.render(user_text,True,(255,255,255))
-        screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
-        input_rect.w=max(140*2,text_surface.get_width()+10)
+        try:
+            screen.blit(text_surface,(input_rect.x+(100/len(user_text)),input_rect.y+5))
+        except:
+            screen.blit(text_surface,(input_rect.x+100,input_rect.y+5))
+        input_rect.w=max(140*2,text_surface.get_width()+70)
 
         pygame.display.update()
 def game_intelation_horse_betting_stake_pbg(i):
@@ -461,6 +469,8 @@ def game_intelation_horse_betting_stake_pbg(i):
                         user_text =user_text[:-1]
                     elif event.key==pygame.K_RETURN:
                         active=False
+                        if len(user_text)<1:
+                            user_text="1"
                         try:
                             return([h,int(user_text)])
                         except:
@@ -476,8 +486,11 @@ def game_intelation_horse_betting_stake_pbg(i):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if input_rect.collidepoint(event.pos):
                     active=True
+                    user_text=""
                 else:
                     active=False
+                    if len(user_text)<1:
+                        user_text="1"
                 
                 if one_BUTTON.checkForInput(MOUSE_POS):
                     if h==1:
@@ -495,7 +508,7 @@ def game_intelation_horse_betting_stake_pbg(i):
                     h=4
 
                 if OPTIONS_BACK.checkForInput(MOUSE_POS):
-                    game_intelation_stations()
+                    play()
 
                 if OPTIONS_FORWARD.checkForInput(MOUSE_POS):
                     player=False
@@ -514,8 +527,11 @@ def game_intelation_horse_betting_stake_pbg(i):
         
         
         text_surface=base_font.render(user_text,True,(255,255,255))
-        screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
-        input_rect.w=max(140*2,text_surface.get_width()+10)
+        try:
+            screen.blit(text_surface,(input_rect.x+(100/len(user_text)),input_rect.y+5))
+        except:
+            screen.blit(text_surface,(input_rect.x+100,input_rect.y+5))
+        input_rect.w=max(140*2,text_surface.get_width()+70)
         pygame.display.update()
 
 def play():
@@ -548,6 +564,8 @@ def play():
         nachziehstappel_auseinander.append([0,0])
 
     Nachziehstapel_(stationen)
+    time_txt=open("txt/zeit.txt","r")
+    x=int(time_txt.read())
     while True:
 
         # Überprüfen, ob Nutzer eine Aktion durchgeführt hat
@@ -580,7 +598,9 @@ def play():
         
         if runde==True:
             time+=1
-            if time>=int(Nachziehstapel_zeit*60) and end==False :
+            
+            
+            if time>=x*60 and end==False :
                 for i in (0,1):
                     nachziehstappel_auseinander[Karte_nummer][i]=randint(-7,7)
 
@@ -605,6 +625,7 @@ def play():
 
                 if W_ass_position[Farbe]> 51+(stationen_abstand*stationen):
                     print("End")
+                    time_txt.close()
                     winner=Ass[Farbe]
                     winner=pygame.transform.rotate(winner,(0))
                     winner=pygame.transform.scale(winner,(W_karte*3,H_karte*3))
@@ -695,6 +716,7 @@ def play():
         # Refresh-Zeiten festlegen
         clock.tick(60)
 def options():
+    pygame.display.set_caption("Optionen")
     file=open("txt/Stations.txt","r")
     inhalt=file.readlines()
 
@@ -704,27 +726,33 @@ def options():
     user_text3=str(int(inhalt[2]))
     
     file=open("txt/Stations.txt","w")
+    file2=open("txt/zeit.txt","r")
+    user_text_time=file2.read()
+    file2=open("txt/zeit.txt","w")
 
-    input_rect1=pygame.Rect(150,150,140,32*3)
-    input_rect2=pygame.Rect(150,300,140,32*3)
-    input_rect3=pygame.Rect(150,450,140,32*3)
+    input_rect1=pygame.Rect(150,150,140,31*3)
+    input_rect2=pygame.Rect(150,300,140,31*3)
+    input_rect3=pygame.Rect(150,450,140,31*3)
+    input_rect_time=pygame.Rect(580,150,140,32*3)
 
     color_active = pygame.Color('Green')
     color_passiv= pygame.Color('white')
     color1=color_passiv
     color2=color_passiv
     color3=color_passiv
+    color_time=color_passiv
 
     active1=False
     active2=False
     active3=False
+    active_time=False
 
     while True:
         screen.blit(BG, (0, 0))
 
         MOUSE_POS = pygame.mouse.get_pos()
-        MENU_TEXT = get_font(50).render("Options", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
+        MENU_TEXT = get_font(60).render("Optionen", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(500, 80))
 
         OPTIONS_BACK = Button(image=None, pos=(850, 550),
                             text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
@@ -738,32 +766,50 @@ def options():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 file.write(f"{user_text1}\n{user_text2}\n{user_text3}")
-                file.close()
+                file2.write(f"{user_text_time}")
+                file.close(),file2.close()
                 pygame.quit()
                 sys.exit()
             
             if event.type ==pygame.MOUSEBUTTONDOWN:
-                
+                if input_rect_time.collidepoint(event.pos):
+                    active_time=True
+                    user_text_time=""
+                else:
+                    if len(user_text_time)<1:
+                        user_text_time="1"
+                    active_time=False
+
                 if input_rect1.collidepoint(event.pos):
                     active1=True
+                    user_text1=""
                 else:
                     active1=False
+                    if len(user_text1)<1:
+                        user_text1="1"
                     
 
                 if input_rect2.collidepoint(event.pos):
                     active2=True
+                    user_text2=""
                 else:
                     active2=False
+                    if len(user_text2)<1:
+                        user_text2="1"
                                    
                 if input_rect3.collidepoint(event.pos):
                     active3=True
+                    user_text3=""
                 else:
                     active3=False
+                    if len(user_text3)<1:
+                        user_text3="1"
 
                 if OPTIONS_BACK.checkForInput(MOUSE_POS):
                     
                     file.write(f"{user_text1}\n{user_text2}\n{user_text3}")
-                    file.close()
+                    file2.write(f"{user_text_time}")
+                    file.close(),file2.close()
                     main_menu()
 
             if event.type==pygame.KEYDOWN:
@@ -773,10 +819,8 @@ def options():
                         user_text1 =user_text1[:-1]
                     elif event.key==pygame.K_RETURN:
                         active1=False
-                        try:
-                            pass
-                        except:
-                            pass
+                        if len(user_text1)<1:
+                            user_text1="1"
                     else:
                         try:
                             input_=int(event.unicode)
@@ -789,10 +833,8 @@ def options():
                         user_text2 =user_text2[:-1]
                     elif event.key==pygame.K_RETURN:
                         active2=False
-                        try:
-                            pass
-                        except:
-                            pass
+                        if len(user_text2)<1:
+                            user_text2="1"
                     else:
                         try:
                             input_=int(event.unicode)
@@ -805,17 +847,28 @@ def options():
                         user_text3 =user_text3[:-1]
                     elif event.key==pygame.K_RETURN:
                         active3=False
-                        try:
-                            pass
-                        except:
-                            pass
+                        if len(user_text3)<1:
+                            user_text3="1"
                     else:
                         try:
                             input_=int(event.unicode)
                             user_text3+=str(input_)
                         except:
                             pass
-        
+
+                if active_time==True:
+                    if event.key==pygame.K_BACKSPACE:
+                        user_text_time =user_text_time[:-1]
+                    elif event.key==pygame.K_RETURN:
+                        active_time=False
+                        if len(user_text_time)<1:
+                            user_text_time="1"
+                    else:
+                        try:
+                            input_=int(event.unicode)
+                            user_text_time+=str(input_)
+                        except:
+                            pass
         if active1:color1=color_active
         else:color1=color_passiv
 
@@ -825,21 +878,47 @@ def options():
         if active3:color3=color_active
         else:color3=color_passiv
 
+        if active_time:color_time=color_active
+        else:color_time=color_passiv
+
         pygame.draw.rect(screen,color1,input_rect1,2)
         pygame.draw.rect(screen,color2,input_rect2,2)
         pygame.draw.rect(screen,color3,input_rect3,2)
+        pygame.draw.rect(screen,color_time,input_rect_time,2)
         
+
+        station1_TEXT = get_font(20).render("Station Option Nr.1", True, "#b68f40")
+        station1_RECT = station1_TEXT.get_rect(center=(220, 130))
+        screen.blit(station1_TEXT, station1_RECT)
+
         text_surface=base_font.render(user_text1,True,(255,255,255))
-        screen.blit(text_surface,(input_rect1.x+5,input_rect1.y+5))
-        input_rect1.w=max(140,text_surface.get_width()+10)
+        screen.blit(text_surface,(input_rect1.x+15,input_rect1.y+5))
+        input_rect1.w=max(80,text_surface.get_width()+20)
+
+        station2_TEXT = get_font(20).render("Station Option Nr.2", True, "#b68f40")
+        station2_RECT = station2_TEXT.get_rect(center=(220, 270))
+        screen.blit(station2_TEXT, station2_RECT)
 
         text_surface=base_font.render(user_text2,True,(255,255,255))
-        screen.blit(text_surface,(input_rect2.x+5,input_rect2.y+5))
-        input_rect2.w=max(140,text_surface.get_width()+10)
+        screen.blit(text_surface,(input_rect2.x+15,input_rect2.y+5))
+        input_rect2.w=max(80,text_surface.get_width()+20)
+
+        station3_TEXT = get_font(20).render("Station Option Nr.3", True, "#b68f40")
+        station3_RECT = station3_TEXT.get_rect(center=(220, 420))
+        screen.blit(station3_TEXT, station3_RECT)
 
         text_surface=base_font.render(user_text3,True,(255,255,255))
-        screen.blit(text_surface,(input_rect3.x+5,input_rect3.y+5))
-        input_rect3.w=max(140,text_surface.get_width()+10)
+        screen.blit(text_surface,(input_rect3.x+15,input_rect3.y+5))
+        input_rect3.w=max(80,text_surface.get_width()+20)
+
+
+        station_time_TEXT = get_font(25).render("Zeiteinstellung:", True, "#b68f40")
+        station_time_RECT = station_time_TEXT.get_rect(center=(700, 130))
+        screen.blit(station_time_TEXT, station_time_RECT)
+
+        text_surface=base_font.render(f"{user_text_time} sek",True,(255,255,255))
+        screen.blit(text_surface,(input_rect_time.x+15,input_rect_time.y+5))
+        input_rect_time.w=max(80,text_surface.get_width()+25)
 
         pygame.display.update()
 
