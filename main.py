@@ -120,13 +120,13 @@ def game_intelation_stations():
 
         MOUSE_POS = pygame.mouse.get_pos()
         MENU_TEXT = get_font(50).render("Anzahl Stationen", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
+        MENU_RECT = MENU_TEXT.get_rect(center=(500, 80))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 250), 
+        PLAY_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 200), 
                             text_input="3", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 400), 
+        OPTIONS_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 350), 
                             text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 550),
+        QUIT_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 500),
                             text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BACK = Button(image=None, pos=(850, 550), 
                             text_input="Zurück", font=get_font(45), base_color="Black", hovering_color="Green")
@@ -321,6 +321,7 @@ def game_intelation_Player():
                         player_sheet.close()
                         game_intelation_stations()
         pygame.display.update()
+
 def game_intelation_Player_keybord_input():
     base_font=pygame.font.Font(None,32*6)
     user_text=''
@@ -521,6 +522,9 @@ def play():
     Farbe=0 
     karte=0
     stationen=game_intelation_stations()
+    stationen_abstand=600//stationen
+    stationen_H,stationen_W=10,10
+    print (stationen_abstand)
 
     player=game_intelation_Player_keybord_input()
     horse_betting_skake=game_intelation_horse_betting_stake(player)
@@ -592,10 +596,10 @@ def play():
 
                 #Farbe=randint(1,4)
 
-                W_ass_position[Farbe]+=120
+                W_ass_position[Farbe]+=stationen_abstand
                 time=0
 
-                if W_ass_position[Farbe]> 51+(120*stationen):
+                if W_ass_position[Farbe]> 51+(stationen_abstand*stationen):
                     print("End")
                     winner=Ass[Farbe]
                     winner=pygame.transform.rotate(winner,(0))
@@ -605,8 +609,8 @@ def play():
 
                     print(Ass[Farbe],Farbe)
 
-                for i in range(160,160+(120*stationen),120):
-                    if W_ass_position[Farbe]==i:
+                for i in range(stationen):
+                    if W_ass_position[Farbe]==(i*stationen_abstand)+(stationen_abstand+40):
                         detektion_station[Farbe]+=1
                         break
                 print(detektion_station, Station)
@@ -616,7 +620,7 @@ def play():
 
                         #Farbe=randint(1,4)
                         Farbe=Spielkarte_stationen[i][1]
-                        W_ass_position[Farbe]-=120
+                        W_ass_position[Farbe]-=stationen_abstand
 
                         if detektion_station[Farbe]!=0:
                             detektion_station[Farbe]-=1
@@ -651,13 +655,14 @@ def play():
 
             screen.blit(Karte_nachziestapel,(830,374))
 
-            for i in range(160,160+(120*stationen),120):
+            for i in range(stationen_abstand+40,stationen_abstand+40+(stationen_abstand*stationen),stationen_abstand):
 
-                if Station[int((i-160)/120)]==1:
-                    screen.blit(Spielkarte_stationen[int((i-160)/120)][0],(i,425))
+                if Station[int((i-(stationen_abstand+40))/stationen_abstand)]==1:
+                    screen.blit(Spielkarte_stationen[int((i-(stationen_abstand+40))/stationen_abstand)][0],(i,425))
                 else:
 
                     screen.blit(Karte_rückseite,(i,425))
+            
             for i in range(Karte_nummer):
                 Nachziehstapel_darstellen_bild=pygame.transform.scale(Nachziehstapel[i][0],(105,150))
                 screen.blit(Nachziehstapel_darstellen_bild,(830+nachziehstappel_auseinander[i][0],170+nachziehstappel_auseinander[i][1]))

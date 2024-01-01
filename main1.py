@@ -191,7 +191,7 @@ while spielaktiv:
 
             #Farbe=randint(1,4)
 
-            W_ass_position[Farbe]+=120
+            W_ass_position[Farbe]+=160
             time=0
 
             if W_ass_position[Farbe]> 51+(120*stationen):
@@ -216,7 +216,7 @@ while spielaktiv:
 
                     #Farbe=randint(1,4)
                     Farbe=Spielkarte_stationen[i][1]
-                    W_ass_position[Farbe]-=120
+                    W_ass_position[Farbe]-=160
 
                     if detektion_station[Farbe]!=0:
                         detektion_station[Farbe]-=1
@@ -274,10 +274,10 @@ while spielaktiv:
 
         screen.blit(Karte_nachziestapel,(830,374))
 
-        for i in range(160,160+(120*stationen),120):
+        for i in range(200,200+(160*stationen),160):
 
-            if Station[int((i-160)/120)]==1:
-                screen.blit(Spielkarte_stationen[int((i-160)/120)][0],(i,425))
+            if Station[int((i-200)/160)]==1:
+                screen.blit(Spielkarte_stationen[int((i-200)/160)][0],(i,425))
             else:
 
                 screen.blit(Karte_rückseite,(i,425))
