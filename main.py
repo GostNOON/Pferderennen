@@ -116,6 +116,9 @@ def Nachziehstapel_darstellen():
 
 
 def game_intelation_stations():
+    f=open("txt/Stations.txt","r")
+    lines=f.readlines()
+    f.close()
     while True:
         screen.blit(BG, (0, 0))
 
@@ -124,11 +127,11 @@ def game_intelation_stations():
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 80))
 
         PLAY_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 200), 
-                            text_input="3", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=str(int(lines[0])), font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 350), 
-                            text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=str(int(lines[1])), font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 500),
-                            text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input=str(int(lines[2])), font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BACK = Button(image=None, pos=(850, 550), 
                             text_input="Zurück", font=get_font(45), base_color="Black", hovering_color="Green")
         
@@ -146,11 +149,11 @@ def game_intelation_stations():
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MOUSE_POS):
-                    return(3)
+                    return(int(lines[0]))
                 if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
-                    return(4)
+                    return(int(lines[1]))
                 if QUIT_BUTTON.checkForInput(MOUSE_POS):
-                    return(5)
+                    return(int(lines[2]))
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if OPTIONS_BACK.checkForInput(MOUSE_POS):
                         main_menu()
@@ -692,45 +695,151 @@ def play():
         # Refresh-Zeiten festlegen
         clock.tick(60)
 def options():
+    file=open("txt/Stations.txt","r")
+    inhalt=file.readlines()
+
+    base_font=pygame.font.Font(None,32*4)
+    user_text1=str(int(inhalt[0]))
+    user_text2=str(int(inhalt[1]))
+    user_text3=str(int(inhalt[2]))
+    
+    file=open("txt/Stations.txt","w")
+
+    input_rect1=pygame.Rect(150,150,140,32*3)
+    input_rect2=pygame.Rect(150,300,140,32*3)
+    input_rect3=pygame.Rect(150,450,140,32*3)
+
+    color_active = pygame.Color('Green')
+    color_passiv= pygame.Color('white')
+    color1=color_passiv
+    color2=color_passiv
+    color3=color_passiv
+
+    active1=False
+    active2=False
+    active3=False
+
     while True:
         screen.blit(BG, (0, 0))
 
         MOUSE_POS = pygame.mouse.get_pos()
-        MENU_TEXT = get_font(50).render("number of Stations ", True, "#b68f40")
+        MENU_TEXT = get_font(50).render("Options", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(500, 100))
 
-        PLAYER_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 250), 
-                            text_input="player", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 400), 
-                            text_input="4", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("image/assets/Quit Rect.png"), pos=(500, 550),
-                            text_input="5", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         OPTIONS_BACK = Button(image=None, pos=(850, 550),
                             text_input="BACK", font=get_font(45), base_color="Black", hovering_color="Green")
         
         screen.blit(MENU_TEXT, MENU_RECT)
-        for button in [PLAYER_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON,OPTIONS_BACK]:
+        for button in [OPTIONS_BACK]:
             button.changeColor(MOUSE_POS)
             button.update(screen)
         
+            
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                file.write(f"{user_text1}\n{user_text2}\n{user_text3}")
+                file.close()
                 pygame.quit()
                 sys.exit()
-            if event.type == KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    main_menu()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAYER_BUTTON.checkForInput(MOUSE_POS):
-                    return(3)
-                if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
-                    return(4)
-                if QUIT_BUTTON.checkForInput(MOUSE_POS):
-                    return(5)
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
-                        main_menu()
+            
+            if event.type ==pygame.MOUSEBUTTONDOWN:
                 
+                if input_rect1.collidepoint(event.pos):
+                    active1=True
+                else:
+                    active1=False
+                    
+
+                if input_rect2.collidepoint(event.pos):
+                    active2=True
+                else:
+                    active2=False
+                                   
+                if input_rect3.collidepoint(event.pos):
+                    active3=True
+                else:
+                    active3=False
+
+                if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                    
+                    file.write(f"{user_text1}\n{user_text2}\n{user_text3}")
+                    file.close()
+                    main_menu()
+
+            if event.type==pygame.KEYDOWN:
+                #Einstellung1
+                if active1==True:
+                    if event.key==pygame.K_BACKSPACE:
+                        user_text1 =user_text1[:-1]
+                    elif event.key==pygame.K_RETURN:
+                        active1=False
+                        try:
+                            pass
+                        except:
+                            pass
+                    else:
+                        try:
+                            input_=int(event.unicode)
+                            user_text1+=str(input_)
+                        except:
+                            pass
+                #Einstellung2
+                if active2==True:
+                    if event.key==pygame.K_BACKSPACE:
+                        user_text2 =user_text2[:-1]
+                    elif event.key==pygame.K_RETURN:
+                        active2=False
+                        try:
+                            pass
+                        except:
+                            pass
+                    else:
+                        try:
+                            input_=int(event.unicode)
+                            user_text2+=str(input_)
+                        except:
+                            pass
+            #einstellung3
+                if active3==True:
+                    if event.key==pygame.K_BACKSPACE:
+                        user_text3 =user_text3[:-1]
+                    elif event.key==pygame.K_RETURN:
+                        active3=False
+                        try:
+                            pass
+                        except:
+                            pass
+                    else:
+                        try:
+                            input_=int(event.unicode)
+                            user_text3+=str(input_)
+                        except:
+                            pass
+        
+        if active1:color1=color_active
+        else:color1=color_passiv
+
+        if active2:color2=color_active
+        else:color2=color_passiv
+
+        if active3:color3=color_active
+        else:color3=color_passiv
+
+        pygame.draw.rect(screen,color1,input_rect1,2)
+        pygame.draw.rect(screen,color2,input_rect2,2)
+        pygame.draw.rect(screen,color3,input_rect3,2)
+        
+        text_surface=base_font.render(user_text1,True,(255,255,255))
+        screen.blit(text_surface,(input_rect1.x+5,input_rect1.y+5))
+        input_rect1.w=max(140,text_surface.get_width()+10)
+
+        text_surface=base_font.render(user_text2,True,(255,255,255))
+        screen.blit(text_surface,(input_rect2.x+5,input_rect2.y+5))
+        input_rect2.w=max(140,text_surface.get_width()+10)
+
+        text_surface=base_font.render(user_text3,True,(255,255,255))
+        screen.blit(text_surface,(input_rect3.x+5,input_rect3.y+5))
+        input_rect3.w=max(140,text_surface.get_width()+10)
 
         pygame.display.update()
 

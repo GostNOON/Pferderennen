@@ -7,3 +7,4 @@ X dEUTSCH
 X einsatz berechnung
 X Optionen
 X pause menü ingame
+X Zeit einstellen
