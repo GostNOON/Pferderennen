@@ -587,7 +587,7 @@ def play():
     time_txt=open("txt/zeit.txt","r")
     x=int(time_txt.read())
     while True:
-
+        
         # Überprüfen, ob Nutzer eine Aktion durchgeführt hat
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
@@ -600,11 +600,6 @@ def play():
                     #distance=-20
                     print(Farbe)
                     W_ass_position[Farbe]+=-20
-                if end==True:
-                    if event.key==pygame.K_SPACE:
-                        main_menu()
-                    if event.type==pygame.MOUSEBUTTONDOWN:
-                        main_menu()
             if event.type==pygame.KEYUP:
                 print("UP")
                 if event.key == pygame.K_c:
@@ -649,16 +644,28 @@ def play():
                     winner=Ass[Farbe]
                     winner=pygame.transform.rotate(winner,(0))
                     winner=pygame.transform.scale(winner,(W_karte*3,H_karte*3))
-                    end=True
+                    
                     gewinner=[]
 
                     for i in range(player):
                         if horse_betting_skake[i][0]==Farbe:
                             gewinner.append(i+1)
                     gewinner_string='/'.join([str(elem) for elem in gewinner])
+                    runde=ende(gewinner_string,player,horse_betting_skake,winner)
                     
-
-                    print(Ass[Farbe],Farbe)
+                    W_ass_position=[0,40,40,40,40]
+                    detektion_station=["Farbe:1:Herz 2:Karo 3:Kreuz 4:Pik",0,0,0,0]
+                    end=False
+                    runde=True
+                    Nachziehstapel_zeit=1
+                    Karte_nummer=0
+                    Station=[]
+                    for i in range(stationen):
+                        Station.append(0)
+                    nachziehstappel_auseinander=[]
+                    for i in range(48-stationen):
+                        nachziehstappel_auseinander.append([0,0])
+                    Nachziehstapel_(stationen)
 
                 for i in range(stationen):
                     if W_ass_position[Farbe]==(i*stationen_abstand)+(stationen_abstand+40):
@@ -717,26 +724,6 @@ def play():
             for i in range(Karte_nummer):
                 Nachziehstapel_darstellen_bild=pygame.transform.scale(Nachziehstapel[i][0],(105,150))
                 screen.blit(Nachziehstapel_darstellen_bild,(830+nachziehstappel_auseinander[i][0],170+nachziehstappel_auseinander[i][1]))
-
-        if end==True:
-            screen.blit(winner,(W/2+200,H/4))
-            runde=False
-            swallowes=0
-            if len(gewinner_string)>1:hat_haben="haben"
-            else:hat_haben="hat"
-
-            TEXT = get_font(40).render(f"Spieler {gewinner_string} {hat_haben} gewonnen!", True, "#b68f40")
-            RECT = TEXT.get_rect(center=(500, 90))
-            
-            for i in range(player):
-                swallowes+=horse_betting_skake[i][1]
-                    
-            TEXT2 = get_font(40).render(f"schlücke: {swallowes} ", True, "#b68f40")
-            RECT2 = TEXT2.get_rect(center=(300,300))
-            screen.blit(TEXT,RECT)
-            screen.blit(TEXT2,RECT2)
-
-
 
         # Fenster aktualisieren
         pygame.display.flip()
@@ -950,6 +937,64 @@ def options():
 
         pygame.display.update()
 
+def ende(gewinner,player,horse_betting_skake,winner):
+    while True:
+        
+        MOUSE_POS = pygame.mouse.get_pos()
+        screen.blit(BG, (0, 0))
+        OPTIONS_again = Button(image=None, pos=(500, 550),
+                            text_input="erneut", font=get_font(65), base_color="Black", hovering_color="blue")
+        Space_Button = Button(image=None, pos=(500, 490),
+                            text_input="Leertaste zum Haubmenü", font=get_font(45), base_color="Black", hovering_color="white")
+
+        for button in [OPTIONS_again,Space_Button]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_SPACE:
+                    main_menu()
+                if event.key==pygame.K_ESCAPE:
+                    main_menu()
+                if event.key==pygame.K_RETURN:
+                    return(True)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if OPTIONS_again.checkForInput(MOUSE_POS):
+                    return(True)
+                if Space_Button.checkForInput(MOUSE_POS):
+                    main_menu()
+                  
+        
+        
+        
+        
+        swallowes=0
+        
+        
+        
+        if len(gewinner)>0:
+            if len(gewinner)>1:hat_haben="haben"
+            else:hat_haben="hat"
+            TEXT = get_font(40).render(f"Spieler {gewinner} {hat_haben} gewonnen!", True, "#b68f40")
+            RECT = TEXT.get_rect(center=(500, 90))
+        else:
+            TEXT = get_font(40).render("Keiner hat gewonnen!", True, "#b68f40")
+            RECT = TEXT.get_rect(center=(500, 90))
+        
+        for i in range(player):
+            swallowes+=horse_betting_skake[i][1]
+                
+        TEXT2 = get_font(40).render(f"schlücke: {swallowes} ", True, "#b68f40")
+        RECT2 = TEXT2.get_rect(center=(300,300))
+        screen.blit(TEXT,RECT)
+        screen.blit(TEXT2,RECT2)
+        screen.blit(winner,(W/2+200,H/4))
+
+        pygame.display.update()
 def main_menu():
     pygame.display.set_caption("Menu")
     while True:
