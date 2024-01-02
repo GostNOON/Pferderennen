@@ -74,7 +74,7 @@ screen=pygame.display.set_mode((W,H))
 #pygame.display.set_caption("Pferderennen")
 clock = pygame.time.Clock()
 BG = pygame.image.load("image/assets\Background.png")
-
+BGM = pygame.image.load("image/assets\Background_menu.png")
 
 def Back():
 
@@ -119,6 +119,7 @@ def game_intelation_stations():
     f=open("txt/Stations.txt","r")
     lines=f.readlines()
     f.close()
+    menu=False
     while True:
         screen.blit(BG, (0, 0))
 
@@ -146,18 +147,23 @@ def game_intelation_stations():
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    main_menu()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MOUSE_POS):
-                    return(int(lines[0]))
-                if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
-                    return(int(lines[1]))
-                if QUIT_BUTTON.checkForInput(MOUSE_POS):
-                    return(int(lines[2]))
+                    
+                    if menu==True:
+                        menu=False
+                    else:menu=True
+            if menu==False:
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if OPTIONS_BACK.checkForInput(MOUSE_POS):
-                        main_menu()
-                
+                    if PLAY_BUTTON.checkForInput(MOUSE_POS):
+                        return(int(lines[0]))
+                    if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
+                        return(int(lines[1]))
+                    if QUIT_BUTTON.checkForInput(MOUSE_POS):
+                        return(int(lines[2]))
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if OPTIONS_BACK.checkForInput(MOUSE_POS):
+                            main_menu()
+        if menu==True:
+            menu=game_menu()
 
         pygame.display.update()
 def game_intelation_horse_betting_stake(p):
@@ -586,145 +592,134 @@ def play():
     Nachziehstapel_(stationen)
     time_txt=open("txt/zeit.txt","r")
     x=int(time_txt.read())
+    menu=False
     while True:
         
         # Überprüfen, ob Nutzer eine Aktion durchgeführt hat
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
-                print("down")
-                if event.key==pygame.K_c:
-                    #karte=randint(0,48)
-                    #print (karte)
-                    print("c Down")
-                elif event.key ==pygame.K_UP:
-                    #distance=-20
-                    print(Farbe)
-                    W_ass_position[Farbe]+=-20
-            if event.type==pygame.KEYUP:
-                print("UP")
-                if event.key == pygame.K_c:
-                    print("c UP")
-                elif event.key ==pygame.K_UP:
-                    distance=0
+                if event.key==pygame.K_ESCAPE:
+                    menu=True
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         # Spiellogik hier integrieren
-        
-        if runde==True:
-            time+=1
-            
-            
-            if time>=x*60 and end==False :
-                for i in (0,1):
-                    nachziehstappel_auseinander[Karte_nummer][i]=randint(-7,7)
-
-                for i in (1,2,3,4):
-                     if Nachziehstapel[Karte_nummer][1]==i:
-                        print(Nachziehstapel[Karte_nummer][1])
-                        Farbe=i
-
-                #Nachziehstapel_darstellen()
-                Karte_nummer+=1
+        if menu==False:
+            if runde==True:
+                time+=1
 
 
-                if Karte_nummer>=48-stationen:
-                    print("Mischen...\n")           
-                    Nachziehstapel_()
-                    Karte_nummer=0
+                if time>=x*60 and end==False :
+                    for i in (0,1):
+                        nachziehstappel_auseinander[Karte_nummer][i]=randint(-7,7)
 
-                #Farbe=randint(1,4)
+                    for i in (1,2,3,4):
+                         if Nachziehstapel[Karte_nummer][1]==i:
+                            print(Nachziehstapel[Karte_nummer][1])
+                            Farbe=i
 
-                W_ass_position[Farbe]+=stationen_abstand
-                time=0
+                    #Nachziehstapel_darstellen()
+                    Karte_nummer+=1
 
-                if W_ass_position[Farbe]> 51+(stationen_abstand*stationen):
-                    print("End")
-                    time_txt.close()
-                    winner=Ass[Farbe]
-                    winner=pygame.transform.rotate(winner,(0))
-                    winner=pygame.transform.scale(winner,(W_karte*3,H_karte*3))
-                    
-                    gewinner=[]
 
-                    for i in range(player):
-                        if horse_betting_skake[i][0]==Farbe:
-                            gewinner.append(i+1)
-                    gewinner_string='/'.join([str(elem) for elem in gewinner])
-                    runde=ende(gewinner_string,player,horse_betting_skake,winner)
-                    
-                    W_ass_position=[0,40,40,40,40]
-                    detektion_station=["Farbe:1:Herz 2:Karo 3:Kreuz 4:Pik",0,0,0,0]
-                    end=False
-                    runde=True
-                    Nachziehstapel_zeit=1
-                    Karte_nummer=0
-                    Station=[]
+                    if Karte_nummer>=48-stationen:
+                        print("Mischen...\n")           
+                        Nachziehstapel_()
+                        Karte_nummer=0
+
+                    #Farbe=randint(1,4)
+
+                    W_ass_position[Farbe]+=stationen_abstand
+                    time=0
+
+                    if W_ass_position[Farbe]> 51+(stationen_abstand*stationen):
+                        print("End")
+                        time_txt.close()
+                        winner=Ass[Farbe]
+                        winner=pygame.transform.rotate(winner,(0))
+                        winner=pygame.transform.scale(winner,(W_karte*3,H_karte*3))
+
+                        gewinner=[]
+
+                        for i in range(player):
+                            if horse_betting_skake[i][0]==Farbe:
+                                gewinner.append(i+1)
+                        gewinner_string='/'.join([str(elem) for elem in gewinner])
+                        runde=ende(gewinner_string,player,horse_betting_skake,winner)
+
+                        W_ass_position=[0,40,40,40,40]
+                        detektion_station=["Farbe:1:Herz 2:Karo 3:Kreuz 4:Pik",0,0,0,0]
+                        end=False
+                        runde=True
+                        Nachziehstapel_zeit=1
+                        Karte_nummer=0
+                        Station=[]
+                        for i in range(stationen):
+                            Station.append(0)
+                        nachziehstappel_auseinander=[]
+                        for i in range(48-stationen):
+                            nachziehstappel_auseinander.append([0,0])
+                        Nachziehstapel_(stationen)
+
                     for i in range(stationen):
-                        Station.append(0)
-                    nachziehstappel_auseinander=[]
-                    for i in range(48-stationen):
-                        nachziehstappel_auseinander.append([0,0])
-                    Nachziehstapel_(stationen)
+                        if W_ass_position[Farbe]==(i*stationen_abstand)+(stationen_abstand+40):
+                            detektion_station[Farbe]+=1
+                            break
+                    print(detektion_station, Station)
+                    for i in range(stationen):
+                        print(i)
+                        if detektion_station[1] >=i+1 and detektion_station[2] >=i+1 and detektion_station[3] >=i+1 and detektion_station[4] >=i+1 and Station[i]!=1:
+
+                            #Farbe=randint(1,4)
+                            Farbe=Spielkarte_stationen[i][1]
+                            W_ass_position[Farbe]-=stationen_abstand
+
+                            if detektion_station[Farbe]!=0:
+                                detektion_station[Farbe]-=1
+                            Station[i]+=1
+
+                            print(Farbe," Ass")
+
+            # Spielfeld/figur(en) zeichnen (davor Spielfeld löschen)
+            screen.fill(color.GRUEN_grund)
+            if runde==True:
+                Karte_größe=pygame.transform.scale(Spielkarte[karte], (140,200))
+                Karte_rückseite=pygame.transform.scale(Hintergrund,(W_karte,H_karte))
+                Karte_nachziestapel=pygame.transform.scale(Hintergrund,(105,150))
+                Karte_rückseite=pygame.transform.rotate(Karte_rückseite,(90))
+                Herz_Ass_größe=pygame.transform.scale(Herz.Ass, (W_karte,H_karte))
+                Herz_Ass_größe=pygame.transform.rotate(Herz_Ass_größe,(90))
+                Karo_Ass_größe=pygame.transform.scale(Karo.Ass, (W_karte,H_karte))
+                Karo_Ass_größe=pygame.transform.rotate(Karo_Ass_größe,(90))
+                Kreuz_Ass_größe=pygame.transform.scale(Kreuz.Ass, (W_karte,H_karte))
+                Kreuz_Ass_größe=pygame.transform.rotate(Kreuz_Ass_größe,(90))
+                Pik_Ass_größe=pygame.transform.scale(Pik.Ass, (W_karte,H_karte))
+                Pik_Ass_größe=pygame.transform.rotate(Pik_Ass_größe,(90))
 
                 for i in range(stationen):
-                    if W_ass_position[Farbe]==(i*stationen_abstand)+(stationen_abstand+40):
-                        detektion_station[Farbe]+=1
-                        break
-                print(detektion_station, Station)
-                for i in range(stationen):
-                    print(i)
-                    if detektion_station[1] >=i+1 and detektion_station[2] >=i+1 and detektion_station[3] >=i+1 and detektion_station[4] >=i+1 and Station[i]!=1:
+                    Spielkarte_stationen[i][0]=pygame.transform.scale(Spielkarte_stationen[i][0],(H_karte,W_karte))
+                    #Spielkarte_stationen[i][0]=pygame.transform.rotate(Spielkarte_stationen[i][0],(90))
 
-                        #Farbe=randint(1,4)
-                        Farbe=Spielkarte_stationen[i][1]
-                        W_ass_position[Farbe]-=stationen_abstand
+                screen.blit(Herz_Ass_größe, (W_ass_position[1],50))
+                screen.blit(Karo_Ass_größe, (W_ass_position[2],150))
+                screen.blit(Kreuz_Ass_größe, (W_ass_position[3],250))
+                screen.blit(Pik_Ass_größe, (W_ass_position[4],350))
 
-                        if detektion_station[Farbe]!=0:
-                            detektion_station[Farbe]-=1
-                        Station[i]+=1
+                screen.blit(Karte_nachziestapel,(830,374))
 
-                        print(Farbe," Ass")
+                for i in range(stationen_abstand+40,stationen_abstand+40+(stationen_abstand*stationen),stationen_abstand):
 
-        # Spielfeld/figur(en) zeichnen (davor Spielfeld löschen)
-        screen.fill(color.GRUEN_grund)
-        if runde==True:
-            Karte_größe=pygame.transform.scale(Spielkarte[karte], (140,200))
-            Karte_rückseite=pygame.transform.scale(Hintergrund,(W_karte,H_karte))
-            Karte_nachziestapel=pygame.transform.scale(Hintergrund,(105,150))
-            Karte_rückseite=pygame.transform.rotate(Karte_rückseite,(90))
-            Herz_Ass_größe=pygame.transform.scale(Herz.Ass, (W_karte,H_karte))
-            Herz_Ass_größe=pygame.transform.rotate(Herz_Ass_größe,(90))
-            Karo_Ass_größe=pygame.transform.scale(Karo.Ass, (W_karte,H_karte))
-            Karo_Ass_größe=pygame.transform.rotate(Karo_Ass_größe,(90))
-            Kreuz_Ass_größe=pygame.transform.scale(Kreuz.Ass, (W_karte,H_karte))
-            Kreuz_Ass_größe=pygame.transform.rotate(Kreuz_Ass_größe,(90))
-            Pik_Ass_größe=pygame.transform.scale(Pik.Ass, (W_karte,H_karte))
-            Pik_Ass_größe=pygame.transform.rotate(Pik_Ass_größe,(90))
+                    if Station[int((i-(stationen_abstand+40))/stationen_abstand)]==1:
+                        screen.blit(Spielkarte_stationen[int((i-(stationen_abstand+40))/stationen_abstand)][0],(i,425))
+                    else:
 
-            for i in range(stationen):
-                Spielkarte_stationen[i][0]=pygame.transform.scale(Spielkarte_stationen[i][0],(H_karte,W_karte))
-                #Spielkarte_stationen[i][0]=pygame.transform.rotate(Spielkarte_stationen[i][0],(90))
+                        screen.blit(Karte_rückseite,(i,425))
 
-            screen.blit(Herz_Ass_größe, (W_ass_position[1],50))
-            screen.blit(Karo_Ass_größe, (W_ass_position[2],150))
-            screen.blit(Kreuz_Ass_größe, (W_ass_position[3],250))
-            screen.blit(Pik_Ass_größe, (W_ass_position[4],350))
-
-            screen.blit(Karte_nachziestapel,(830,374))
-
-            for i in range(stationen_abstand+40,stationen_abstand+40+(stationen_abstand*stationen),stationen_abstand):
-
-                if Station[int((i-(stationen_abstand+40))/stationen_abstand)]==1:
-                    screen.blit(Spielkarte_stationen[int((i-(stationen_abstand+40))/stationen_abstand)][0],(i,425))
-                else:
-
-                    screen.blit(Karte_rückseite,(i,425))
-            
-            for i in range(Karte_nummer):
-                Nachziehstapel_darstellen_bild=pygame.transform.scale(Nachziehstapel[i][0],(105,150))
-                screen.blit(Nachziehstapel_darstellen_bild,(830+nachziehstappel_auseinander[i][0],170+nachziehstappel_auseinander[i][1]))
-
+                for i in range(Karte_nummer):
+                    Nachziehstapel_darstellen_bild=pygame.transform.scale(Nachziehstapel[i][0],(105,150))
+                    screen.blit(Nachziehstapel_darstellen_bild,(830+nachziehstappel_auseinander[i][0],170+nachziehstappel_auseinander[i][1]))
+        if menu==True:
+            menu=game_menu()
         # Fenster aktualisieren
         pygame.display.flip()
 
@@ -1033,5 +1028,34 @@ def main_menu():
                     sys.exit()
 
         pygame.display.update()
+def game_menu():
+    screen.blit(BGM, (0, 0))
+    MOUSE_POS = pygame.mouse.get_pos()
+    MENU_TEXT = get_font(50).render("Anzahl Stationen", True, "#b68f40")
+    MENU_RECT = MENU_TEXT.get_rect(center=(500, 80))
 
+    PLAY_BUTTON = Button(image=pygame.image.load("image/assets/menu Button.png"), pos=(500, 160), 
+                        text_input="Weiter", font=get_font(45), base_color="Black", hovering_color="White")
+    OPTIONS_BUTTON = Button(image=pygame.image.load("image/assets/menu Button.png"), pos=(500, 280), 
+                        text_input="", font=get_font(75), base_color="Black", hovering_color="White")
+    QUIT_BUTTON = Button(image=pygame.image.load("image/assets/menu Button.png"), pos=(500, 400),
+                        text_input="Beenden", font=get_font(45), base_color="Black", hovering_color="White")
+    main_menu_BUTTON = Button(image=pygame.image.load("image/assets/menu Button.png"), pos=(500, 520),
+                        text_input="Haubtmenü", font=get_font(35), base_color="Black", hovering_color="White")
+    
+    for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON,main_menu_BUTTON]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
+    for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MOUSE_POS):
+                    return(False)
+                if OPTIONS_BUTTON.checkForInput(MOUSE_POS):
+                    pass
+                if QUIT_BUTTON.checkForInput(MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
+                if main_menu_BUTTON.checkForInput(MOUSE_POS):
+                    main_menu()
+    return(True)
 main_menu()

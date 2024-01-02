@@ -1,12 +1,12 @@
 § personalisierter einsatz
-X endscreen
-x stationen skalierung
+§ endscreen
+§ stationen skalierung
 ? hintergrund ändern
-X endscreen machen(space um zurück zu kommen)
-? dEUTSCH
-X einsatz berechnung
+? endscreen machen(space um zurück zu kommen)
+§ dEUTSCH
+? einsatz berechnung
 § Optionen
-X pause menü ingame
+? pause menü ingame
 § Zeit einstellen
 ? Rundenbasiert manuel Automatisch
-X erneute Runde butten ohne zum haubtmenü zukommen
+§ erneute Runde butten ohne zum haubtmenü zukommen

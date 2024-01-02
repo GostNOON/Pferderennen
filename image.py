@@ -140,3 +140,4 @@ Nachziehstapel=[
 [Pik.zwei,4],[Pik.drei,4],[Pik.vier,4],[Pik.fünf,4],[Pik.sechs,4],[Pik.sieben,4],[Pik.acht,4],[Pik.neun,4],[Pik.zehn,4],[Pik.Bube,4],[Pik.Dame,4],[Pik.König,4]
 
 ]
+menu=False
